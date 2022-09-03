@@ -9,59 +9,88 @@ namespace StackTests
         [Test]
         public void Creation()
         {
-            Stack<int> s = new Stack<int>(3);
-            Assert.AreEqual(0, s.Size);
+            // Act
+            Stack<int> stack = new Stack<int>(3);
+
+            // Assert
+            Assert.AreEqual(0, stack.Size);
+        }
+
+        public void AssertMaximumStackSize()
+        {
+            // Setup
+            Stack<int> stack = new Stack<int>(7);
+
+            // Assert
+            Assert.AreEqual(7, stack.MaximumLength);
         }
 
         [Test]
-        public void Push_Pop()
+        public void HappyFlow_Pop()
         {
-            Stack<int> s = new Stack<int>(3);
+            // Setup
+            Stack<int> stack = new Stack<int>(3);
 
-            s.Push(1);
-            s.Push(2);
-            s.Push(3);
-            int value = s.Pop();
+            // Act
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            int value = stack.Pop();
 
+            // Assert
             Assert.AreEqual(3, value);
-            Assert.AreEqual(2, s.Size);
+            Assert.AreEqual(2, stack.Size);
         }
 
         [Test]
-        public void Too_Much_Pop()
+        public void HappyFlow_Peek()
         {
-            Stack<int> s = new Stack<int>(3);
-            Assert.Throws<ExpenditureProhibitedException>(() => s.Pop());
-        }
+            // Setup
+            Stack<int> stack = new Stack<int>(3);
 
-        [Test]
-        public void Too_Much_Push()
-        {
-            Stack<int> s = new Stack<int>(3);
-            s.Push(1);
-            s.Push(2);
-            s.Push(3);
-            Assert.Throws<ExceededSizeException>(() => s.Push(4));
-        }
+            // Act
+            stack.Push(1);
+            stack.Push(2);
+            int value = stack.Peek();
 
-        [Test]
-        public void Peek_Exception()
-        {
-            Stack<int> s = new Stack<int>(3);
-            Assert.Throws<ExpenditureProhibitedException>(() => s.Peek());
-        }
-
-        [Test]
-        public void Peek_Element()
-        {
-            Stack<int> s = new Stack<int>(3);
-
-            s.Push(1);
-            s.Push(2);
-            int value = s.Peek();
-
+            // Assert
             Assert.AreEqual(2, value);
-            Assert.AreEqual(2, s.Size);
+            Assert.AreEqual(2, stack.Size);
+        }
+
+        [Test]
+        public void ShouldThrow_PopingWhenNoArguments()
+        {
+            // Setup
+            Stack<int> stack = new Stack<int>(3);
+
+            // Act + Assert
+            Assert.Throws<ExpenditureProhibitedException>(() => stack.Pop());
+        }
+
+        [Test]
+        public void ShouldThrow_PutInMoreThanThePossibleAmount()
+        {
+            // Setup
+            Stack<int> stack = new Stack<int>(3);
+
+            // Act
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+
+            // Act + Assert
+            Assert.Throws<ExceededSizeException>(() => stack.Push(4));
+        }
+
+        [Test]
+        public void ShouldThrow_PeekWhenNoArguments()
+        {
+            // Setup
+            Stack<int> stack = new Stack<int>(3);
+
+            // Act + Assert
+            Assert.Throws<ExpenditureProhibitedException>(() => stack.Peek());
         }
     }
 }

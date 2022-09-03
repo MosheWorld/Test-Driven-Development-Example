@@ -4,17 +4,17 @@
     {
         #region Members
         private T[] stackArray;
-        private int maximumLength;
         #endregion
 
         #region Properties
         public int Size { get; private set; }
+        public int MaximumLength { get; private set; }
         #endregion
 
         #region Constructor
         public Stack(int length)
         {
-            maximumLength = length;
+            MaximumLength = length;
             stackArray = new T[length];
         }
         #endregion
@@ -22,7 +22,7 @@
         #region Public Methods
         public void Push(T value)
         {
-            if (Size == maximumLength)
+            if (Size == MaximumLength)
                 throw new ExceededSizeException();
 
             stackArray[Size++] = value;
